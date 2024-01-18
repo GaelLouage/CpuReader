@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CpuReader"
         mc:Ignorable="d"
+        Topmost="True"
            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="CpuMonitor" Height="450" Width="400">
+        Title="CpuMonitor" Height="800" Width="750">
     
     <Grid Loaded="Grid_Loaded" Background="#FF151515">
         <Grid.RowDefinitions>
@@ -26,15 +27,30 @@
         
         <Separator Grid.Row="1" Margin="0,25,0,25" Background="Orange"></Separator>
 
-        <GroupBox Grid.Row="2" Header="La vitesse d'horloge du processeur" Foreground="Orange" Margin="10">
-            <TextBlock  x:Name="txtClocks" Foreground="Orange" HorizontalAlignment="Center" Margin="10"/>
-        </GroupBox>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 0 0 50">
+            <StackPanel>
+                <GroupBox  Header="Vitesse du processeur" Foreground="Orange" Margin="10">
+                    <TextBlock  x:Name="txtClocks" Foreground="Orange" HorizontalAlignment="Center" Margin="15"/>
+                </GroupBox>
+            </StackPanel>
+            <StackPanel>
+                <GroupBox  Header="Charge sur le processeur" Foreground="Orange" Margin="10">
+                    <TextBlock  x:Name="txtLoads" Foreground="Orange" HorizontalAlignment="Center" Margin="15"/>
+                </GroupBox>
+            </StackPanel>
+            <StackPanel>
+                <GroupBox  Header="Consommation de watts" Foreground="Orange" Margin="10">
+                    <TextBlock  x:Name="txtWatts" Foreground="Orange" HorizontalAlignment="Center" Margin="15"/>
+                </GroupBox>
+            </StackPanel>
+        </StackPanel>
+  
        
 
-        <ProgressBar Grid.Row="3" Height="25" x:Name="pbCpuTemp" Minimum="0" Maximum="110" Margin="10,0" Background="Black" Foreground="Orange"/>
+        <ProgressBar Grid.Row="3" Height="25" x:Name="pbCpuTemp" Minimum="0" Maximum="110" Margin="10,0" Background="Black" Foreground="Orange" MaxWidth="610"/>
 
         
-        <TextBlock Grid.Row="3" Text="{Binding ElementName=pbCpuTemp, Path=Value, StringFormat={}{0:0}°}"
+        <TextBlock Grid.Row="3" Text="{Binding ElementName=pbCpuTemp, Path=Value, StringFormat={}{0:0.0}°}"
                    VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White">
             <TextBlock.FontSize>14</TextBlock.FontSize>
         </TextBlock>

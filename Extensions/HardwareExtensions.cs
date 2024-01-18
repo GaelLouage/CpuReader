@@ -19,12 +19,12 @@ namespace CpuReader.Extensions
             var sensorTypeDictionary = new Dictionary<SensorType, Action>()
             {
                 {SensorType.Clock, () => { myHardware.Cpu.ClockSpeed = (int)hd.Value; } },
-                {SensorType.Temperature, () => {    
-                                                myHardware.Cpu.Temperature.Current = (int)hd.Value;
-                                                myHardware.Cpu.Temperature.Min = (int)hd.Min;
-                                                myHardware.Cpu.Temperature.Max  = (int)hd.Max;
+                {SensorType.Temperature, () => {
+                                                myHardware.Cpu.Temperature.Current = hd.Value;
+                                                myHardware.Cpu.Temperature.Min = hd.Min;
+                                                myHardware.Cpu.Temperature.Max  = hd.Max;
                                                 }
-                }
+                },
             };
 
             if (sensorTypeDictionary.ContainsKey(sensorType))
@@ -42,26 +42,50 @@ namespace CpuReader.Extensions
             {
                 var cpuTemp = hardware.Get(SensorType.Temperature);
                 var clockSpeed = hardware.Get(SensorType.Clock).Cpu.ClockSpeed;
-
-                var platform = hardware.Identifier;
+                var load = hardware.Get(SensorType.Load);
+                
                 hWare.Cpu.Name = hardware.Name;
                 hWare.Cpu.ClockSpeed = (int)Math.Round((double)clockSpeed);
                 hWare.Cpu.Temperature.Current = cpuTemp.Cpu.Temperature.Current;
                 hWare.Cpu.Temperature.Min = cpuTemp.Cpu.Temperature.Min;
                 hWare.Cpu.Temperature.Max = cpuTemp.Cpu.Temperature.Max;
-                hWare.Cpu.Clocks = new List<CpuClock>();
 
+                hWare.Cpu.Clocks =
+                [
+                    .. hardware.Sensors
+                    .Where(x => x.SensorType is SensorType.Clock)
+                    .Select(x =>
+                    new CpuClock()
+                    {
+                       ClockName = x.Name,
+                       ClockSpeed = (int)Math.Round((double)x.Value)
+                    }),
+                ];
+                hWare.Cpu.Loads =
+                [
+                    .. hardware.Sensors
+                        .Where(x => x.SensorType is SensorType.Load)
+                        .Select(x => new CpuLoad()
+                        {
+                            Core = x.Name,
+                            Max = x.Max,
+                            Value = x.Value,
 
-                hWare.Cpu.Clocks.AddRange(hardware.Sensors
-               .Where(x => x.SensorType is SensorType.Clock)
-               .Select(x =>
-               new CpuClock()
-               {
-                   ClockName = x.Name,
-                   ClockSpeed = (int)Math.Round((double)x.Value),
-                   Load = (int)x.Hardware.Sensors.Where(x => x.SensorType == SensorType.Load).Select(x => x.Value).First()
-               }));
+                        }),
+                ];
+                hWare.Cpu.Powers =
+                [
+                    .. hardware.Sensors
+                    .Where(x => x.SensorType is SensorType.Power)
+                    .Select(x => new Power()
+                    {
+                        Core = x.Name,
+                        Max = x.Max,
+                        Value = x.Value,
+                    })
+                ];
             }
+
         }
 
     }

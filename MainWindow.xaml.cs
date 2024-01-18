@@ -10,6 +10,7 @@ using CpuReader.Models;
 using CpuReader.Extensions;
 using CpuReader.Service.Interfaces;
 using CpuReader.Service.Classes;
+using System.Windows.Media;
 
 namespace CpuReader
 {
@@ -54,14 +55,35 @@ namespace CpuReader
                 Application.Current.Dispatcher?.Invoke(() =>
                 {
                     txtCpuName.Text = $"{HardWare.Cpu.Name} {HardWare.Cpu.Clocks.Skip(1).Count()}-Core";
-                    pbCpuTemp.Value = HardWare.Cpu.Temperature.Current;
-                    txtCpuMinTemperature.Text = $"Température minimum: {HardWare.Cpu.Temperature.Min}°";
-                    txtCpuMaxTemperature.Text = $"Température maximale: {HardWare.Cpu.Temperature.Max}°";
+                    var currentCpuTemperature = HardWare.Cpu.Temperature.Current;
+                    if (currentCpuTemperature <= 50)
+                    {
+                        pbCpuTemp.Foreground = Brushes.LightGreen;
+                    }
+                    else if(currentCpuTemperature <= 60)
+                    {
+                        pbCpuTemp.Foreground = Brushes.Green;
+                    }
+                    else if (currentCpuTemperature <= 72)
+                    {
+                        pbCpuTemp.Foreground = Brushes.Orange;
+                    }
+                    else
+                    {
+                        pbCpuTemp.Foreground = Brushes.Red;
+                    }
+                    pbCpuTemp.Value = (double)HardWare.Cpu.Temperature.Current;
+                    txtCpuMinTemperature.Text = $"Température minimum: {Math.Round((double)HardWare.Cpu.Temperature.Min,1)}°";
+                    txtCpuMaxTemperature.Text = $"Température maximale: {Math.Round((double)HardWare.Cpu.Temperature.Max,1)}°";
 
-                    txtClocks.Text = HardWare.Cpu.GetGlocksData().ToString();
+                    txtClocks.Text = HardWare.Cpu.GetClocksFrequencyToString();
+
+                    txtLoads.Text = HardWare.Cpu.GetLoadsToString();
+
+                    txtWatts.Text = HardWare.Cpu.GetPowersToString();
                 });
             
-                await Task.Delay(1000); // Avoid async void deadlock
+                await Task.Delay(1000); 
             }
         }
     }

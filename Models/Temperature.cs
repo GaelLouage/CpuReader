@@ -2,8 +2,8 @@
 {
     public class Temperature
     {
-        public int Current { get; set; }
-        public int Min { get; set; }
-        public int Max { get; set; }
+        public float? Current { get; set; }
+        public float? Min { get; set; }
+        public float? Max { get; set; }
     }
 }

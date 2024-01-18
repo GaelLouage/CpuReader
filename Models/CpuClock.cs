@@ -10,7 +10,6 @@ namespace CpuReader.Models
     {
         public string ClockName { get; set; }
         public int ClockSpeed { get; set; }
-        public int Load {  get; set; }
         public string ToString()
         {
             return $"{ClockName}:{ClockSpeed} MHz";
