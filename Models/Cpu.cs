@@ -2,13 +2,12 @@
 
 namespace CpuReader.Models
 {
-    public class Cpu
+    public class Cpu 
     {
         public string Name { get; set; }
         public int ClockSpeed { get; set; }
-        public int Temperature { get; set; }
-        public int MinTemperature { get; set; }
-        public int MaxTemperature { get; set; }
+        public Temperature Temperature { get; set; } = new Temperature();
+
         public int Cores { get; set; }
         public List<CpuClock>? Clocks { get; set; } 
         public StringBuilder GetGlocksData()

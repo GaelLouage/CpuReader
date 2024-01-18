@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CpuReader.Models
 {
-    public class CpuClock
+    public class CpuClock 
     {
         public string ClockName { get; set; }
         public int ClockSpeed { get; set; }

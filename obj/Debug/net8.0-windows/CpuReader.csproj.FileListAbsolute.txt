@@ -52,3 +52,4 @@ C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\CpuReader.pdb
 C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\CpuReader.genruntimeconfig.cache
 C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\ref\CpuReader.dll
 C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\CpuReader_Content.g.cs
+C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\CpuReader.sourcelink.json
