@@ -1,0 +1,49 @@
+﻿<Window x:Class="CpuReader.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CpuReader"
+        mc:Ignorable="d"
+           xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="CpuMonitor" Height="450" Width="400">
+    
+    <Grid Loaded="Grid_Loaded" Background="#FF151515">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+      
+        
+        <TextBlock Grid.Row="0" x:Name="txtCpuName" Foreground="Orange" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,25,0,15">
+            <TextBlock.FontSize>18</TextBlock.FontSize>
+            <TextBlock.FontWeight>Bold</TextBlock.FontWeight>
+        </TextBlock>
+        
+        <Separator Grid.Row="1" Margin="0,25,0,25" Background="Orange"></Separator>
+
+        <GroupBox Grid.Row="2" Header="La vitesse d'horloge du processeur" Foreground="Orange" Margin="10">
+            <TextBlock  x:Name="txtClocks" Foreground="Orange" HorizontalAlignment="Center" Margin="10"/>
+        </GroupBox>
+       
+
+        <ProgressBar Grid.Row="3" Height="25" x:Name="pbCpuTemp" Minimum="0" Maximum="110" Margin="10,0" Background="Black" Foreground="Orange"/>
+
+        
+        <TextBlock Grid.Row="3" Text="{Binding ElementName=pbCpuTemp, Path=Value, StringFormat={}{0:0}°}"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White">
+            <TextBlock.FontSize>14</TextBlock.FontSize>
+        </TextBlock>
+     
+        <StackPanel Grid.Row="4" HorizontalAlignment="Center" Orientation="Horizontal">
+            <TextBlock x:Name="txtCpuMinTemperature" Foreground="Orange" Margin="15"/>
+            <TextBlock x:Name="txtCpuMaxTemperature" Foreground="Orange" Margin="15"/>
+        </StackPanel>
+        
+      
+    </Grid>
+</Window>
