@@ -1,4 +1,5 @@
 ﻿using CpuReader.Models;
+using CpuReader.Singleton;
 using LibreHardwareMonitor.Hardware;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace CpuReader.Extensions
     {
         public static HWare Get(this IHardware hardware, SensorType sensorType)
         {
-            var myHardware = new HWare();
+            var myHardware = HardWareSingleton.Instance.Hardware;
             var hd = hardware.Sensors.FirstOrDefault(x => x.SensorType == sensorType);
 
             var sensorTypeDictionary = new Dictionary<SensorType, Action>()

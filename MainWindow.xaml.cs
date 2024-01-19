@@ -11,6 +11,8 @@ using CpuReader.Extensions;
 using CpuReader.Service.Interfaces;
 using CpuReader.Service.Classes;
 using System.Windows.Media;
+using CpuReader.Helpers;
+using CpuReader.Singleton;
 
 namespace CpuReader
 {
@@ -18,6 +20,10 @@ namespace CpuReader
     {
         private BackgroundWorker cpuMonitoringWorker;
         private readonly IHardWareService _hardWareService;
+        private bool _gpuTabIsclicked = false;
+        private bool _cpuTabIsclicked = false;
+        private bool _settingsTabIsClicked = false;
+        private bool _ramTabIsClicked = false;
 
         public MainWindow(IHardWareService hardWareService)
         {
@@ -28,63 +34,83 @@ namespace CpuReader
         {
             InitializeComponent();
             DataContext = this;
-           
+
+            // ui startup
+            panel_settings.Visibility = Visibility.Collapsed;
+
             cpuMonitoringWorker = new BackgroundWorker();
-            cpuMonitoringWorker.DoWork += CpuMonitoringWorker_DoWork;
-           
+            cpuMonitoringWorker.WorkerSupportsCancellation = true;
+            cpuMonitoringWorker.DoWork += MonitoringWorker_DoWork;
+
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             cpuMonitoringWorker.RunWorkerAsync();
         }
-     
-
-      
-        private async void CpuMonitoringWorker_DoWork(object sender, DoWorkEventArgs e)
+        private async void MonitoringWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             while (!cpuMonitoringWorker.CancellationPending)
             {
-
-                var (HardWare, Success) = _hardWareService.CpuData();
-                if(!Success)
-                {
-                    MessageBox.Show("An Error occured!");
-                    return;
-                }
-                Application.Current.Dispatcher?.Invoke(() =>
-                {
-                    txtCpuName.Text = $"{HardWare.Cpu.Name} {HardWare.Cpu.Clocks.Skip(1).Count()}-Core";
-                    var currentCpuTemperature = HardWare.Cpu.Temperature.Current;
-                    if (currentCpuTemperature <= 50)
-                    {
-                        pbCpuTemp.Foreground = Brushes.LightGreen;
-                    }
-                    else if(currentCpuTemperature <= 60)
-                    {
-                        pbCpuTemp.Foreground = Brushes.Green;
-                    }
-                    else if (currentCpuTemperature <= 72)
-                    {
-                        pbCpuTemp.Foreground = Brushes.Orange;
-                    }
-                    else
-                    {
-                        pbCpuTemp.Foreground = Brushes.Red;
-                    }
-                    pbCpuTemp.Value = (double)HardWare.Cpu.Temperature.Current;
-                    txtCpuMinTemperature.Text = $"Température minimum: {Math.Round((double)HardWare.Cpu.Temperature.Min,1)}°";
-                    txtCpuMaxTemperature.Text = $"Température maximale: {Math.Round((double)HardWare.Cpu.Temperature.Max,1)}°";
-
-                    txtClocks.Text = HardWare.Cpu.GetClocksFrequencyToString();
-
-                    txtLoads.Text = HardWare.Cpu.GetLoadsToString();
-
-                    txtWatts.Text = HardWare.Cpu.GetPowersToString();
-                });
-            
-                await Task.Delay(1000); 
+              
+                UIUpdater.RunCpuUI(_hardWareService, txtCpuName, txtCpuTempPgb,pbCpuTemp, txtCpuMinTemperature, txtCpuMaxTemperature, txtClocks, txtLoads,txtWatts, rdbFahrenheit);
+                await Task.Delay(1000);
             }
         }
+
+      
+        private void txtCpuTab_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            panel_cpu.Visibility = Visibility.Visible;
+            panel_settings.Visibility = Visibility.Collapsed;
+            _cpuTabIsclicked = true;
+            _gpuTabIsclicked = false;
+            _settingsTabIsClicked = false;
+            _ramTabIsClicked = false;
+        }
+
+        private void txtSettings_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            panel_cpu.Visibility = Visibility.Collapsed;
+            panel_settings.Visibility = Visibility.Visible;
+            _settingsTabIsClicked = true;
+            _cpuTabIsclicked = false;
+             _gpuTabIsclicked  = false;
+            _ramTabIsClicked = false;
+        }
+
+        private void txtGpuTab_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            panel_cpu.Visibility = Visibility.Collapsed;
+            panel_settings.Visibility = Visibility.Collapsed;
+            _gpuTabIsclicked = true;
+            _cpuTabIsclicked = false;
+            _settingsTabIsClicked = true;
+            _ramTabIsClicked = false;
+        }
+
+        private void txtRamTab_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            panel_cpu.Visibility = Visibility.Collapsed;
+            panel_settings.Visibility = Visibility.Collapsed;
+            _ramTabIsClicked = true;
+            _gpuTabIsclicked = false;
+            _cpuTabIsclicked = false;
+            _settingsTabIsClicked = false;
+        }
+        #region settings
+        // settings combobox
+     
+        private void rdbFahrenheit_Checked(object sender, RoutedEventArgs e)
+        {
+            pbCpuTemp.Maximum = MathHelper.ToFahrenheit(110);
+        }
+        private void rdbCelsius_Checked(object sender, RoutedEventArgs e)
+        {
+            pbCpuTemp.Maximum = 110;
+        }
+        #endregion
+
+
     }
 }

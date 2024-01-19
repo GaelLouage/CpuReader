@@ -13,5 +13,8 @@ namespace CpuReader.Extensions
         {
             return Math.Round((double)number, 1);
         }
+
+        public static double ToFahrenheit(double celsius) =>  (celsius * 1.8) + 32;
+        
     }
 }

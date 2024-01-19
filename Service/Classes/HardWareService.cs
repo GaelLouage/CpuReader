@@ -1,6 +1,7 @@
 ﻿using CpuReader.Extensions;
 using CpuReader.Models;
 using CpuReader.Service.Interfaces;
+using CpuReader.Singleton;
 using LibreHardwareMonitor.Hardware;
 using System;
 using System.Collections.Generic;
@@ -21,20 +22,19 @@ namespace CpuReader.Service.Classes
 
         public (HWare HardWare, bool Success) CpuData()
         {
-            var hWare = new HWare();
             try
             {
                 foreach (IHardware hardware in computer.Hardware)
                 {
                     hardware.Update();
 
-                    hWare.SetCpuProperties(hardware);
+                    HardWareSingleton.Instance.Hardware.SetCpuProperties(hardware);
                 }
-                return (hWare, true);
+                return (HardWareSingleton.Instance.Hardware, true);
             }
-            catch (Exception ex)
+            catch 
             {
-                return (hWare, false);
+                return (HardWareSingleton.Instance.Hardware, false);
             }
         }
     }

@@ -49,7 +49,7 @@ namespace CpuReader.Models
             var max = loads.Select(x => x.Max).Sum() / loads.Count;
             
     
-            sb.AppendLine($"CPU Total: {"".PadLeft(16)}  {Math.Round((double)loads.Select(x => x.Value).Sum(),1)} %");
+            sb.AppendLine($"CPU Total: {"".PadLeft(16)}  {Math.Round((double)loads.Select(x => x.Value).Sum() / loads.Count,1)} %");
             sb.AppendLine("-------------------------------");
             sb.AppendLine(string.Join("\n", loads.Select((x, i) => $"CPU Core # {++i} {"".PadLeft(10)}  {Math.Round((double)x.Value,1)} %")));
             sb.AppendLine("-------------------------------");
