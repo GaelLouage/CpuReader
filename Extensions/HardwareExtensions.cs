@@ -36,7 +36,7 @@ namespace CpuReader.Extensions
         }
 
 
-
+        #region cpuRegion
         public static void SetCpuProperties(this HWare hWare, IHardware hardware)
         {
             if (hardware.HardwareType == HardwareType.Cpu)
@@ -88,6 +88,20 @@ namespace CpuReader.Extensions
             }
 
         }
+        #endregion
 
+
+
+        #region GpuRegion
+
+        #endregion
+
+        public static ISensor GetSensorByName(this List<ISensor> sensors, string name) =>
+            sensors.FirstOrDefault(x => x.Name.Equals(name));
+        
+
+        public static ISensor GetSensorByEnum(this List<ISensor> sensors, SensorType sensorType) =>
+            sensors.FirstOrDefault(x => x.SensorType == sensorType);
+        
     }
 }

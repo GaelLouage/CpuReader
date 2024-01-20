@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CpuReader"
         mc:Ignorable="d"
-        Topmost="True"
+   
            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="CpuMonitor" Height="800" Width="750">
+        Title="System Monitor" Height="800" Width="750">
 
     <Grid Loaded="Grid_Loaded" Background="#FF151515">
         <Grid.RowDefinitions>
@@ -76,11 +76,67 @@
                 </Separator.RenderTransform>
             </Separator>
         </StackPanel>
-        
-        
+        <!--######################-->
+        <!--Panel section-->
+        <!--######################-->
+        <!--GPu Panel-->
+        <StackPanel Grid.Row="1" Grid.RowSpan="6" x:Name="gpuPpanel" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <TextBlock Grid.Row="0" x:Name="txtGpuName" Foreground="Orange" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,25,0,15">
+                <TextBlock.FontSize>18</TextBlock.FontSize>
+                <TextBlock.FontWeight>Bold</TextBlock.FontWeight>
+            </TextBlock>
+
+            <Separator Grid.Row="1" Margin="0,25,0,25" Background="Orange" Width="5500"></Separator>
+            
+            <!--gpu memory-->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 0 0 50">
+                <StackPanel>
+                    <GroupBox  Header="Gpu Memory" Foreground="Orange" Margin="10" >
+
+                        <TextBlock x:Name="txtGpuMemory" Foreground="Orange" HorizontalAlignment="Center" Margin="15"/>
+
+                    </GroupBox>
+                </StackPanel>
+                <StackPanel>
+                    <GroupBox  Header="Gpu Load" Foreground="Orange" Margin="10" >
+
+                        <TextBlock x:Name="txtGpuLoad" Foreground="Orange" HorizontalAlignment="Center" Margin="15"/>
+
+                    </GroupBox>
+                </StackPanel>
+
+                <StackPanel>
+                    <GroupBox  Header="Gpu Fans" Foreground="Orange" Margin="10" >
+
+                        <TextBlock x:Name="txtGpuPower" Foreground="Orange" HorizontalAlignment="Center" Margin="15"/>
+
+                    </GroupBox>
+                </StackPanel>
+            </StackPanel>
+
+    
+
+
+           
+
+
+
+            <StackPanel Grid.Row="3" >
+                <ProgressBar Height="25" x:Name="pbGpuTemp" Minimum="0"  Margin="15,0" Background="Black" Foreground="Orange" MaxWidth="610"/>
+
+
+                <TextBlock x:Name="txtGpuTempPgb"
+             VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"
+                      Margin="0,-29,0,0">
+                    <TextBlock.FontSize>14</TextBlock.FontSize>
+                </TextBlock>
+
+            </StackPanel>
+        </StackPanel>
+
         <!--cpupanel-->
         <StackPanel Grid.Row="1" Grid.RowSpan="6" x:Name="panel_cpu" VerticalAlignment="Top" HorizontalAlignment="Center">
-            
+
 
 
             <TextBlock Grid.Row="0" x:Name="txtCpuName" Foreground="Orange" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,25,0,15">
@@ -127,7 +183,7 @@
             </StackPanel>
 
         </StackPanel>
-
+        <!--settings Panel-->
         <StackPanel Grid.Row="1" Grid.RowSpan="6" x:Name="panel_settings" VerticalAlignment="Top" HorizontalAlignment="Center">
             <GroupBox Header="Temperature Unit" Foreground="Orange">
                 <StackPanel>
@@ -137,5 +193,7 @@
                 </StackPanel>
             </GroupBox>
         </StackPanel>
+
+
     </Grid>
 </Window>

@@ -13,8 +13,11 @@ namespace CpuReader.Extensions
         {
             return Math.Round((double)number, 1);
         }
-
-        public static double ToFahrenheit(double celsius) =>  (celsius * 1.8) + 32;
+        public static double RoundToOneDecimal(float? number)
+        {
+            return Math.Round((double)number, 1);
+        }
+        public static double ToFahrenheit(double celsius) => (celsius * 9 / 5) + 32;
         
     }
 }
