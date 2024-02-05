@@ -7,7 +7,7 @@
         mc:Ignorable="d"
    
            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="System Monitor" Height="800" Width="750">
+        Title="CPU Monitor" Height="800" Width="750">
 
     <Grid Loaded="Grid_Loaded" Background="#FF151515">
         <Grid.RowDefinitions>
@@ -18,122 +18,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Background="Orange" Height="25">
-            <StackPanel HorizontalAlignment="Center" Width="100" VerticalAlignment="Center">
-                <!--gpu button-->
-                <TextBlock x:Name="txtGpuTab" Foreground="White" Grid.Row="0" Text="GPU" Background="Orange"  TextAlignment="Center" Cursor="Hand" MouseLeftButtonUp="txtGpuTab_MouseLeftButtonUp"/>
-            </StackPanel>
-            <Separator Background="White" Width="24" RenderTransformOrigin="0.5,0.5">
-                <Separator.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-90"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Separator.RenderTransform>
-            </Separator>
-            <StackPanel HorizontalAlignment="Center" Width="100" VerticalAlignment="Center">
-                <!--cpu button-->
-                <TextBlock x:Name="txtCpuTab" Foreground="White" Grid.Row="0" Text="CPU" Background="Orange"  TextAlignment="Center" Cursor="Hand" MouseLeftButtonUp="txtCpuTab_MouseLeftButtonUp"/>
-            </StackPanel>
-            <Separator Background="White" Width="24" RenderTransformOrigin="0.5,0.5">
-                <Separator.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-90"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Separator.RenderTransform>
-            </Separator>
-            <StackPanel HorizontalAlignment="Center" Width="100" VerticalAlignment="Center">
-                <!--ram button-->
-                <TextBlock x:Name="txtRamTab" Foreground="White" Grid.Row="0" Text="RAM" Background="Orange"  TextAlignment="Center" Cursor="Hand" MouseLeftButtonUp="txtRamTab_MouseLeftButtonUp"/>
-            </StackPanel>
-            <Separator Background="White" Width="24" RenderTransformOrigin="0.5,0.5">
-                <Separator.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-90"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Separator.RenderTransform>
-            </Separator>
-            <!--settingsbutton-->
-            <StackPanel HorizontalAlignment="Center" Width="100" VerticalAlignment="Center">
-                <TextBlock x:Name="txtSettings" Foreground="White" Grid.Row="0" Text="SETTINGS" Background="Orange" TextAlignment="Center" Cursor="Hand" MouseLeftButtonUp="txtSettings_MouseLeftButtonUp"/>
-            </StackPanel>
-            <Separator Background="White" Width="24" RenderTransformOrigin="0.5,0.5">
-                <Separator.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-90"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Separator.RenderTransform>
-            </Separator>
-        </StackPanel>
+  
         <!--######################-->
         <!--Panel section-->
         <!--######################-->
-        <!--GPu Panel-->
-        <StackPanel Grid.Row="1" Grid.RowSpan="6" x:Name="gpuPpanel" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <TextBlock Grid.Row="0" x:Name="txtGpuName" Foreground="Orange" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,25,0,15">
-                <TextBlock.FontSize>18</TextBlock.FontSize>
-                <TextBlock.FontWeight>Bold</TextBlock.FontWeight>
-            </TextBlock>
-
-            <Separator Grid.Row="1" Margin="0,25,0,25" Background="Orange" Width="5500"></Separator>
-            
-            <!--gpu memory-->
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 0 0 50">
-                <StackPanel>
-                    <GroupBox  Header="Gpu Memory" Foreground="Orange" Margin="10" >
-
-                        <TextBlock x:Name="txtGpuMemory" Foreground="Orange" HorizontalAlignment="Center" Margin="15"/>
-
-                    </GroupBox>
-                </StackPanel>
-                <StackPanel>
-                    <GroupBox  Header="Gpu Load" Foreground="Orange" Margin="10" >
-
-                        <TextBlock x:Name="txtGpuLoad" Foreground="Orange" HorizontalAlignment="Center" Margin="15"/>
-
-                    </GroupBox>
-                </StackPanel>
-
-                <StackPanel>
-                    <GroupBox  Header="Gpu Fans" Foreground="Orange" Margin="10" >
-
-                        <TextBlock x:Name="txtGpuPower" Foreground="Orange" HorizontalAlignment="Center" Margin="15"/>
-
-                    </GroupBox>
-                </StackPanel>
-            </StackPanel>
-
     
-
-
-           
-
-
-
-            <StackPanel Grid.Row="3" >
-                <ProgressBar Height="25" x:Name="pbGpuTemp" Minimum="0"  Margin="15,0" Background="Black" Foreground="Orange" MaxWidth="610"/>
-
-
-                <TextBlock x:Name="txtGpuTempPgb"
-             VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"
-                      Margin="0,-29,0,0">
-                    <TextBlock.FontSize>14</TextBlock.FontSize>
-                </TextBlock>
-
-            </StackPanel>
-        </StackPanel>
-
         <!--cpupanel-->
         <StackPanel Grid.Row="1" Grid.RowSpan="6" x:Name="panel_cpu" VerticalAlignment="Top" HorizontalAlignment="Center">
 
@@ -183,17 +72,9 @@
             </StackPanel>
 
         </StackPanel>
-        <!--settings Panel-->
-        <StackPanel Grid.Row="1" Grid.RowSpan="6" x:Name="panel_settings" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <GroupBox Header="Temperature Unit" Foreground="Orange">
-                <StackPanel>
-                    <RadioButton x:Name="rdbCelsius" Content="Celsius" Foreground="Orange" Cursor="Hand" Margin="10" Checked="rdbCelsius_Checked"/>
 
-                    <RadioButton x:Name="rdbFahrenheit" Content="Fahrenheit" Foreground="Orange" Cursor="Hand" Margin="10" Checked="rdbFahrenheit_Checked"/>
-                </StackPanel>
-            </GroupBox>
-        </StackPanel>
 
+        
 
     </Grid>
 </Window>

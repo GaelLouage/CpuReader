@@ -7,6 +7,7 @@ using LibreHardwareMonitor.Hardware;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,39 +39,6 @@ namespace CpuReader.Service.Classes
                 return (HardWareSingleton.Instance.Hardware, false);
             }
         }
-        public (Gpu Gpu, bool Success) GpuData()
-        {
-            try
-            {
-                foreach (IHardware hardware in computer.Hardware)
-                {
-                    
-                    hardware.Update();
-                    //if(hardware.HardwareType is HardwareType.GpuAmd)
-                    //{
-
-                    //}
-                    if(hardware.HardwareType is HardwareType.GpuNvidia)
-                    {
-                        
-                        return (new Gpu()
-                        {
-                            Name = hardware.Name,
-                            Sensors = hardware.Sensors.ToList()
-                        }, true);
-                        //var hardwareName = hardware.Name;
-                        //ISensor[] hardwareData = hardware.Sensors;
-                        //var c = hardware.Parent;
-                        //var aa = hardware;
-                        //var ca = hardware.SubHardware;
-                        //return (hardware , true);
-                    }
-                 
-                }
-             
-            }
-            catch { }
-            return (new Gpu(),false);
-        }
+    
     }
 }

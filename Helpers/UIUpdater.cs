@@ -18,7 +18,7 @@ namespace CpuReader.Helpers
     {
         public static void RunCpuUI(IHardWareService hardWareService, TextBlock txtCpuName,TextBlock txtCpuTempPgb, ProgressBar pbCpuTemp, TextBlock txtCpuMinTemperature , TextBlock txtCpuMaxTemperature, TextBlock txtClocks,
             TextBlock txtLoads,
-            TextBlock txtWatts, RadioButton fahrenheit)
+            TextBlock txtWatts)
         {
        
             var (HardWare, Success) = hardWareService.CpuData();
@@ -36,10 +36,7 @@ namespace CpuReader.Helpers
 
                 CelsiusUpdater(pbCpuTemp, txtCpuTempPgb, txtCpuMinTemperature, txtCpuMaxTemperature, hardWareSingleton, currentCpuTemperature);
 
-                if ((bool)fahrenheit.IsChecked)
-                {
-                    FahrenheitUpdater(pbCpuTemp, txtCpuTempPgb, txtCpuMinTemperature, txtCpuMaxTemperature, hardWareSingleton, currentCpuTemperature);
-                }
+            
 
 
                 txtClocks.Text = hardWareSingleton.Cpu.GetClocksFrequencyToString();
