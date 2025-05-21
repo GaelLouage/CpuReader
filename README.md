@@ -69,7 +69,7 @@ Setup
 
         Build and run the solution
 
-![CpuReader Screenshot](blob/main/cpuReaderScreenshot.png)
+![CpuReader Screenshot](cpuReaderScreenshot.png)
 
 🛠 How It Works
 
