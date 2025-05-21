@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CpuReader")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+90193f7107bc052db5a65f67b8e895a925f10334")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4a2b492059973edb547539d044fcb62a46be3d34")]
 [assembly: System.Reflection.AssemblyProductAttribute("CpuReader")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CpuReader")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
