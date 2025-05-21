@@ -10,7 +10,6 @@ C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\CpuReader.dll
 C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\CpuReader.pdb
 C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\HidSharp.dll
 C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\LibreHardwareMonitorLib.dll
-C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\System.CodeDom.dll
 C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\System.IO.Ports.dll
 C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\System.Management.dll
 C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\runtimes\linux-arm\lib\netstandard2.0\Mono.Posix.NETStandard.dll
@@ -45,7 +44,6 @@ C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\CpuReader.Generat
 C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\CpuReader.AssemblyInfoInputs.cache
 C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\CpuReader.AssemblyInfo.cs
 C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\CpuReader.csproj.CoreCompileInputs.cache
-C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\CpuReader.csproj.CopyComplete
 C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\CpuReader.dll
 C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\refint\CpuReader.dll
 C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\CpuReader.pdb
@@ -53,3 +51,4 @@ C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\CpuReader.genrunt
 C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\ref\CpuReader.dll
 C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\CpuReader_Content.g.cs
 C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\CpuReader.sourcelink.json
+C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\CpuReader.csproj.Up2Date

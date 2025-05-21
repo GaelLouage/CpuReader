@@ -31,10 +31,7 @@ namespace CpuReader
         {
             InitializeComponent();
             DataContext = this;
-
-
             BackGroundWorker();
-
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -46,7 +43,15 @@ namespace CpuReader
             while (!_monitoringWorker.CancellationPending)
             {
               
-                UIUpdater.RunCpuUI(_hardWareService, txtCpuName, txtCpuTempPgb,pbCpuTemp, txtCpuMinTemperature, txtCpuMaxTemperature, txtClocks, txtLoads,txtWatts);
+                UIUpdater.RunCpuUI(_hardWareService,
+                    txtCpuName,
+                    txtCpuTempPgb,pbCpuTemp, 
+                    txtCpuMinTemperature, 
+                    txtCpuMaxTemperature, 
+                    txtClocks, 
+                    txtLoads,
+                    txtWatts);
+                // update every second
                 await Task.Delay(1000);
             }
         }
