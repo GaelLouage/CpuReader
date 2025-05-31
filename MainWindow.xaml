@@ -5,76 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CpuReader"
         mc:Ignorable="d"
-   
+   Background="#FF151515"
            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="CPU Monitor" Height="800" Width="750">
+        Title="Hardware Monitor" Height="1200" Width="1400">
 
-    <Grid Loaded="Grid_Loaded" Background="#FF151515">
+    <Grid Loaded="Grid_Loaded">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-  
-        <!--######################-->
-        <!--Panel section-->
-        <!--######################-->
-    
-        <!--cpupanel-->
-        <StackPanel Grid.Row="1" Grid.RowSpan="6" x:Name="panel_cpu" VerticalAlignment="Top" HorizontalAlignment="Center">
+        <DockPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="6" Grid.ColumnSpan="2" Background="#D50000"/>
 
-
-
-            <TextBlock Grid.Row="0" x:Name="txtCpuName" Foreground="Orange" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,25,0,15">
-                <TextBlock.FontSize>18</TextBlock.FontSize>
-                <TextBlock.FontWeight>Bold</TextBlock.FontWeight>
-            </TextBlock>
-
-            <Separator Grid.Row="1" Margin="0,25,0,25" Background="Orange" Width="5500"></Separator>
-
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 0 0 50">
-                <StackPanel>
-                    <GroupBox  Header="CPU speed" Foreground="Orange" Margin="10">
-                        <TextBlock  x:Name="txtClocks" Foreground="Orange" HorizontalAlignment="Center" Margin="15"/>
-                    </GroupBox>
-                </StackPanel>
-                <StackPanel>
-                    <GroupBox  Header="CPU Load" Foreground="Orange" Margin="10">
-                        <TextBlock  x:Name="txtLoads" Foreground="Orange" HorizontalAlignment="Center" Margin="15"/>
-                    </GroupBox>
-                </StackPanel>
-                <StackPanel>
-                    <GroupBox  Header="CPU Watt consumption" Foreground="Orange" Margin="10">
-                        <TextBlock  x:Name="txtWatts" Foreground="Orange" HorizontalAlignment="Center" Margin="15"/>
-                    </GroupBox>
-                </StackPanel>
-            </StackPanel>
-
-
-            <StackPanel Grid.Row="3" >
-                <ProgressBar Height="25" x:Name="pbCpuTemp" Minimum="0"  Margin="15,0" Background="Black" Foreground="Orange" MaxWidth="610"/>
-
-
-                <TextBlock x:Name="txtCpuTempPgb"
-          VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"
-                            Margin="0,-29,0,0">
-                    <TextBlock.FontSize>14</TextBlock.FontSize>
-                </TextBlock>
-
-            </StackPanel>
-
-            <StackPanel Grid.Row="4" HorizontalAlignment="Center" Orientation="Horizontal">
-                <TextBlock x:Name="txtCpuMinTemperature" Foreground="Orange" Margin="15"/>
-                <TextBlock x:Name="txtCpuMaxTemperature" Foreground="Orange" Margin="15"/>
-            </StackPanel>
-
-        </StackPanel>
-
-
-        
-
+        <Image Source="Images/topIco.png" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Cursor="Hand" Width="100" Height="100"/>
+        <Image x:Name="btnMotherBoard" Source="Images/mdb.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Cursor="Hand" Width="100" Height="100" MouseLeftButtonDown="btnMotherBoard_MouseLeftButtonDown" />
+        <Image x:Name="btnCpu" Source="Images/cpu.png" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Cursor="Hand" Width="100" Height="100" MouseLeftButtonDown="btnCpu_MouseLeftButtonDown" />
+        <Image x:Name="btnGpu"  Source="Images/gpu.png" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Cursor="Hand" Width="100" Height="100" MouseLeftButtonDown="btnGpu_MouseLeftButtonDown"/>
+        <ContentControl x:Name="MainContent"
+				Grid.Row="0" Grid.RowSpan="6"
+                 Grid.Column="2"
+				Grid.ColumnSpan="6" />
     </Grid>
 </Window>

@@ -6,61 +6,54 @@ using System.Threading.Tasks;
 using System.Windows;
 using LibreHardwareMonitor.Hardware;
 using LibreHardwareMonitor.Hardware.Cpu;
-using CpuReader.Models;
 using CpuReader.Extensions;
-using CpuReader.Service.Interfaces;
-using CpuReader.Service.Classes;
 using System.Windows.Media;
 using CpuReader.Helpers;
-using CpuReader.Singleton;
 using System.Diagnostics.CodeAnalysis;
+
+using CpuReader.UserControls;
 
 namespace CpuReader
 {
     public partial class MainWindow : Window
     {
-        private BackgroundWorker _monitoringWorker;
-        private readonly IHardWareService _hardWareService;
-
-        public MainWindow(IHardWareService hardWareService)
-        {
-            _hardWareService = hardWareService;
-        }
-
-        public MainWindow() : this(new HardWareService())
+        private  Computer _computer;
+    
+        public MainWindow()
         {
             InitializeComponent();
-            DataContext = this;
-            BackGroundWorker();
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            _monitoringWorker.RunWorkerAsync();
-        }
-        private async void MonitoringWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (!_monitoringWorker.CancellationPending)
+            _computer = new Computer
             {
-              
-                UIUpdater.RunCpuUI(_hardWareService,
-                    txtCpuName,
-                    txtCpuTempPgb,pbCpuTemp, 
-                    txtCpuMinTemperature, 
-                    txtCpuMaxTemperature, 
-                    txtClocks, 
-                    txtLoads,
-                    txtWatts);
-                // update every second
-                await Task.Delay(1000);
-            }
-        }
-        private void BackGroundWorker()
-        {
-            _monitoringWorker = new BackgroundWorker();
-            _monitoringWorker.WorkerSupportsCancellation = true;
-            _monitoringWorker.DoWork += MonitoringWorker_DoWork;
+                IsCpuEnabled = true,
+                IsGpuEnabled = true,
+                IsMemoryEnabled = true,
+                IsMotherboardEnabled = true,
+                IsControllerEnabled = true,
+                IsStorageEnabled = true,
+                IsNetworkEnabled = true,
+                IsBatteryEnabled = true,
+                IsPsuEnabled = true,
+            };
+            _computer.Open();
         }
 
+        private void btnMotherBoard_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            MainContent.Content = new MotherBoardControl(_computer);
+        }
+
+        private void btnCpu_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            MainContent.Content = new CpuControl(_computer);
+        }
+
+        private void btnGpu_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            MainContent.Content = new GpuControl(_computer);
+        }
     }
 }

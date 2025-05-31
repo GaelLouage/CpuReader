@@ -9,5 +9,9 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("favicon.ico")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/cpu.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/gpu.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/mdb.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/topico.png")]
 
 
