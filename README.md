@@ -69,6 +69,8 @@ Setup
 
         Build and run the solution
 
+![CpuReader Screenshot](cpuReaderScreenshot.png)
+
 🛠 How It Works
 
     On application start, a BackgroundWorker is initialized to run every second.
