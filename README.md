@@ -1,19 +1,25 @@
-🖥️ CpuReader
+**Hardware Monitor** is a real-time CPU and hardware monitoring application built with **WPF (Windows Presentation Foundation)** and powered by **LibreHardwareMonitor**. It provides a sleek and interactive GUI to display detailed system metrics such as:
 
-CpuReader is a real-time CPU monitoring application built with WPF (Windows Presentation Foundation) and powered by LibreHardwareMonitor. It displays live CPU statistics including temperature, clock speed, loads, and power usage in a clean GUI.
-🧰 Features
+- CPU temperature, clock speed, loads, and power usage
+- GPU statistics
+- Memory usage
+- Storage activity
+- Motherboard sensors
 
-    🌡️ CPU temperature (current, min, max)
+## Features
 
-    ⏱️ Clock speed per core
+- 📈 Live hardware monitoring via `LibreHardwareMonitor`
+- 🎛️ Intuitive interface with gauges powered by **Syncfusion**
+- 📊 Dynamic charts using **CartesianChart**
+- 🖥️ Multi-component hardware readout (CPU, GPU, RAM, disks, motherboard)
+- ⚡ Optimized for performance with asynchronous data fetching
 
-    📈 CPU load per core
+## Technologies Used
 
-    ⚡ Power consumption monitoring
-
-    🔁 Live updates every second
-
-    🧩 Modular, extensible, and easy to maintain
+- [.NET / WPF](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/)
+- [LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor)
+- [Syncfusion WPF Controls](https://www.syncfusion.com/wpf-controls)
+- [LiveCharts](https://github.com/Live-Charts/Live-Charts)
 
 🗂️ Project Structure
 
