@@ -1,0 +1,205 @@
+﻿<UserControl x:Class="CpuReader.UserControls.DashboardControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                          xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+          xmlns:gauge ="clr-namespace:Syncfusion.UI.Xaml.Gauges;assembly=Syncfusion.SfGauge.Wpf"
+              xmlns:syncfusion="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF"
+             xmlns:local="clr-namespace:CpuReader.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Loaded="Grid_Loaded">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="6"
+       BorderBrush="#FF313131" BorderThickness="2" CornerRadius="5" Margin="40" Background="#FF313131">
+            <TextBlock x:Name="txtMbdName"
+              Foreground="White"
+              FontSize="25"
+              Background="#FF313131"
+              VerticalAlignment="Center"
+              Padding="10"
+              Text="Your Text Here"/>
+        </Border>
+
+        <GroupBox x:Name="gbCpuName"  Foreground="White" Grid.Row="2" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="50,0,40,0"      >
+            <StackPanel Margin="20" VerticalAlignment="Center" >
+                <gauge:SfCircularGauge x:Name="CPUtemperatureCircularGauge" 
+       
+         Height="250">
+                    <gauge:SfCircularGauge.Scales>
+                        <gauge:CircularScale
+                           StartValue="0"
+                           EndValue="100"
+                           RimStrokeThickness="20"
+                           LabelOffset="50"
+                           RimStroke="#D50000">
+                            <gauge:CircularScale.Pointers>
+
+                                <gauge:CircularPointer PointerType="NeedlePointer"
+                         EnableAnimation="True"
+                         Value="50"
+                         RangeStart="0"
+                          NeedlePointerType="Tapered"
+                         RangeEndOffset ="0"/>
+
+                            </gauge:CircularScale.Pointers>
+                        </gauge:CircularScale>
+                    </gauge:SfCircularGauge.Scales>
+                </gauge:SfCircularGauge>
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Foreground="White" Text="Current:" Margin="50,0,55,15"/>
+                    <TextBlock x:Name="txtValueTemperature" Foreground="White" Text="..." Margin="5,0,60,0"/>
+                </StackPanel>
+                <Button  x:Name="btnCpuDetails" Cursor="Hand"   Foreground="White" VerticalAlignment="Center" Click="btnCpuDetails_Click" >
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border     
+                               Background="#D50000"
+                               Margin="20"
+                                Padding="20"
+                                BorderBrush="#FF313131"
+                                BorderThickness="2"
+                                CornerRadius="5">
+
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    Details
+                </Button>
+
+            </StackPanel>
+
+
+        </GroupBox>
+
+
+        <GroupBox x:Name="gbGpuName"   Foreground="White" Grid.Row="2" Grid.RowSpan="4" Grid.Column="2" Grid.ColumnSpan="2"  Margin="50,0,40,0">
+            <StackPanel Margin="20" VerticalAlignment="Center" >
+                <gauge:SfCircularGauge x:Name="GPUtemperatureCircularGauge" Height="250">
+                    <gauge:SfCircularGauge.Scales>
+                        <gauge:CircularScale
+                             StartValue="0"
+                             EndValue="100"
+                             RimStrokeThickness="20"
+                             LabelOffset="50"
+                             RimStroke="#D50000">
+                            <gauge:CircularScale.Pointers>
+                                <gauge:CircularPointer PointerType="NeedlePointer"
+                                EnableAnimation="True"
+                                Value="50"
+                                RangeStart="0"
+                                 NeedlePointerType="Tapered"
+                                RangeEndOffset ="0"/>
+                            </gauge:CircularScale.Pointers>
+                        </gauge:CircularScale>
+                    </gauge:SfCircularGauge.Scales>
+                </gauge:SfCircularGauge>
+
+
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Foreground="White" Text="Current:" Margin="50,0,55,15"/>
+                    <TextBlock x:Name="txtGpuValueTemperature" Foreground="White" Text="..." Margin="5,0,60,0"/>
+                </StackPanel>
+
+                <Button  x:Name="btnGpuDetails" Cursor="Hand"   Foreground="White" VerticalAlignment="Center" Click="btnGpuDetails_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border     
+                                 Background="#D50000"
+                                 Margin="20"
+                                 Padding="20"
+                                 BorderBrush="#FF313131"
+                                 BorderThickness="2"
+                                 CornerRadius="5">
+
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    Details
+                </Button>
+
+            </StackPanel>
+        </GroupBox>
+
+
+
+
+        <GroupBox x:Name="gbStorageName"   Foreground="White" Grid.Row="2" Grid.RowSpan="4" Grid.Column="4" Grid.ColumnSpan="2"   Margin="50,0,40,0"     >
+            <StackPanel Margin="20" VerticalAlignment="Center" >
+                <gauge:SfCircularGauge x:Name="StoragetemperatureCircularGauge" 
+  
+    Height="250">
+                    <gauge:SfCircularGauge.Scales>
+                        <gauge:CircularScale
+                      StartValue="0"
+                      EndValue="100"
+                      RimStrokeThickness="20"
+                      LabelOffset="50"
+                      RimStroke="#D50000">
+                            <gauge:CircularScale.Pointers>
+
+                                <gauge:CircularPointer PointerType="NeedlePointer"
+                                EnableAnimation="True"
+                                Value="50"
+                                RangeStart="0"
+                                 NeedlePointerType="Tapered"
+                                RangeEndOffset ="0"/>
+
+                            </gauge:CircularScale.Pointers>
+                        </gauge:CircularScale>
+                    </gauge:SfCircularGauge.Scales>
+                </gauge:SfCircularGauge>
+
+                <StackPanel Margin="30,20,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Foreground="White" Text="Min:" Margin="30,0,55,15"/>
+                        <TextBlock x:Name="txtStorageMinTemperature" Foreground="White" Text="..." Margin="5,0,60,0"/>
+                    </StackPanel>
+
+
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Foreground="White" Text="Current:" Margin="20,0,55,15"/>
+                        <TextBlock x:Name="txtStorageValueTemperature" Foreground="White" Text="..." Margin="5,0,60,0"/>
+                    </StackPanel>
+
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Foreground="White" Text="Max:" Margin="36,0,55,15"/>
+                        <TextBlock x:Name="txtStorageMaxTemperature" Foreground="White" Text="..." Margin="5,0,60,0"/>
+                    </StackPanel>
+                </StackPanel>
+
+            
+
+            </StackPanel>
+        </GroupBox>
+
+
+
+  
+    </Grid>
+</UserControl>

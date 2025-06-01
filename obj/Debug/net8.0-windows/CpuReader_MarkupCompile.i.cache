@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\louag\source\repos\CpuReader\App.xaml
-4745109254
+41216616059
 5-1285365350
-15602122128
+20851993389
 2172098062864
-MainWindow.xaml;UserControls\CpuControl.xaml;UserControls\GpuControl.xaml;UserControls\MotherBoardControl.xaml;
+MainWindow.xaml;UserControls\CpuControl.xaml;UserControls\DashboardControl.xaml;UserControls\GpuControl.xaml;
 
 False
 

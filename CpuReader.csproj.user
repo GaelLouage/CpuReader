@@ -12,10 +12,10 @@
     <Compile Update="UserControls\CpuControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UserControls\GpuControl.xaml.cs">
+    <Compile Update="UserControls\DashboardControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UserControls\MotherBoardControl.xaml.cs">
+    <Compile Update="UserControls\GpuControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -26,10 +26,10 @@
     <Page Update="UserControls\CpuControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UserControls\GpuControl.xaml">
+    <Page Update="UserControls\DashboardControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UserControls\MotherBoardControl.xaml">
+    <Page Update="UserControls\GpuControl.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

@@ -64,8 +64,6 @@ C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\runtimes\linux-mu
 C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\runtimes\linux-musl-x64\native\libSystem.IO.Ports.Native.so
 C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\runtimes\maccatalyst-arm64\native\libSystem.IO.Ports.Native.dylib
 C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\runtimes\maccatalyst-x64\native\libSystem.IO.Ports.Native.dylib
-C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\UserControls\MotherBoardControl.g.cs
-C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\UserControls\MotherBoardControl.baml
 C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\Images\mdb.png
 C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\Images\topIco.png
 C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\HarfBuzzSharp.dll
@@ -96,3 +94,5 @@ C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\Syncfusion.Licens
 C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\Syncfusion.SfGauge.WPF.dll
 C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\Syncfusion.Shared.WPF.dll
 C:\Users\louag\source\repos\CpuReader\bin\Debug\net8.0-windows\Syncfusion.SfChart.WPF.dll
+C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\UserControls\DashboardControl.g.cs
+C:\Users\louag\source\repos\CpuReader\obj\Debug\net8.0-windows\UserControls\DashboardControl.baml

@@ -1,4 +1,5 @@
 ﻿using CpuReader.Enums;
+using CpuReader.Extensions;
 using CpuReader.Helpers;
 using LibreHardwareMonitor.Hardware;
 using LibreHardwareMonitor.Hardware.Cpu;
@@ -40,78 +41,52 @@ namespace CpuReader.UserControls
     /// </summary>
     public partial class CpuControl : UserControl
     {
-        private ISensor[] _loadsSensors;
-        private double[] _loadValues;
-        public Axis[] XLoadsAxes { get; set; }
-        public Axis[] YLoadsAxes { get; set; }
-        public ISeries[] Loads { get; set; }
-        public Axis[] XAxes { get; set; }
-        public Axis[] YAxes { get; set; }
-        public ISeries[] Frequencies { get; set; }
-        private double[] _values;
-        private ISensor[] _clocks;
-
-        private Computer _computer;
+        // private fields
         private DispatcherTimer _timer;
         private IHardware _cpu;
+        // databinding properties
+        public ChartDataEntity LoadChart { get; set; }
+        public ChartDataEntity FrequenciesChart { get; set; }
 
-        public CpuControl(Computer computer)
+        public CpuControl(IHardware cpu)
         {
             InitializeComponent();
-            _computer = computer;
+            _cpu = cpu;
+            // initialize properties
+            LoadChart = new ChartDataEntity();
+            FrequenciesChart = new ChartDataEntity();
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            ISeries[] frequencies;
-            Axis[] yAxes;
-            Axis[] xAxes;
+         
 
-            ISeries[] loads;
-            Axis[] yloadsAxes;
-            Axis[] xloadsAxes;
-
-            _cpu = _computer.Hardware.FirstOrDefault(x => x.HardwareType == HardwareType.Cpu);
             txtCpuName.Text = _cpu.Name;
             _cpu.Update();  // This ensures you get current sensor data
-
-            // Get clock sensors with valid values
-            _clocks = _cpu.Sensors.Where(x => x.SensorType == SensorType.Clock  && x.Value.HasValue).ToArray();
-            _values = _clocks.Select(x => (double)x.Value.Value).ToArray();
-
-
-            _loadsSensors = _cpu.Sensors.Where(x => x.SensorType == SensorType.Load && x.Value.HasValue).ToArray();
-            _loadValues = _loadsSensors.Select(x => (double)x.Value.Value).ToArray();
-
-            ChartHelpers.SetChartData(out frequencies, out xAxes, out yAxes, _values, _clocks, "MHz", "", "Frequency (MHz)");
-            Frequencies = frequencies;
-            XAxes = xAxes;
-            YAxes = yAxes;
+            // set the chart sensors on frequancy and loads
+            FrequenciesChart.SetChartSensors(_cpu, x => x.SensorType == SensorType.Clock && x.Value.HasValue, x => (double)x.Value.Value);
+            LoadChart.SetChartSensors(_cpu, x => x.SensorType == SensorType.Load, x => Math.Round((double)x.Value));
 
 
-            ChartHelpers.SetChartData(out loads, out xloadsAxes, out yloadsAxes, _values, _clocks, "%", "", "%");
-            Loads = loads;
-            XLoadsAxes = xloadsAxes;
-            YLoadsAxes = yloadsAxes;
-          
-            var temperature = _cpu.Sensors.FirstOrDefault(x => x.SensorType == SensorType.Temperature);
-            var power = _cpu.Sensors.FirstOrDefault(x => x.SensorType == SensorType.Power);
-            var pointer = circularGaugeUi.Scales[0].Pointers[0] as Syncfusion.UI.Xaml.Gauges.CircularPointer;
-            if (pointer != null)
-            {
-                pointer.Value = temperature.Value.Value;
-            }
+            // set frequencies chartData
+            (var frequencies, var xfrequenciesAxes, var yfrequenciesAxes) =  ChartHelpers.SetChartData(FrequenciesChart.Values, FrequenciesChart.Sensors, "MHz", 0, 8000);
+            FrequenciesChart.Series = frequencies;
+            FrequenciesChart.XAxes = xfrequenciesAxes;
+            FrequenciesChart.YAxes = yfrequenciesAxes;
+
+            // set load frequencies chartData
+            (var loads, var xloadsAxes, var yloadsAxes) = ChartHelpers.SetChartData(LoadChart.Values, LoadChart.Sensors, "%",0,100);
+            LoadChart.Series = loads;
+            LoadChart.XAxes = xloadsAxes;
+            LoadChart.YAxes = yloadsAxes;
+
 
             DataContext = this;
-
-
-
 
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromMilliseconds(500);
             _timer.Tick += Gpu_Tick;
             _timer.Start();
-
         }
 
 
@@ -120,101 +95,34 @@ namespace CpuReader.UserControls
         {
             _cpu.Update();
 
-            _clocks = _cpu.Sensors.Where(x => x.SensorType == SensorType.Clock && x.Value.HasValue).ToArray();
-            _values = _clocks.Select(x => (double)x.Value.Value).ToArray();
+            // set the chart sensors on frequancy and loads
+            FrequenciesChart.SetChartSensors(_cpu, x => x.SensorType == SensorType.Clock && x.Value.HasValue, x => (double)x.Value.Value);
+            LoadChart.SetChartSensors(_cpu, x => x.SensorType == SensorType.Load, x => Math.Round((double)x.Value));
+            // set the column series on frequancy and loads
+            FrequenciesChart.SetColumnSeries();
+            LoadChart.SetColumnSeries();
 
-
-            _loadsSensors = _cpu.Sensors.Where(x => x.SensorType == SensorType.Load && x.Value.HasValue).ToArray();
-            _loadValues = _loadsSensors.Select(x => (double)x.Value.Value).ToArray();
-
-
-            if (Frequencies[0] is ColumnSeries<double> columnSeries)
-            {
-                columnSeries.Values = _values;
-            }
-            else
-            {
-                MessageBox.Show($"Unexpected series type: {Frequencies[0]?.GetType()?.Name}");
-            }
-
-
-            if (Loads[0] is ColumnSeries<double> columnLoadsSeries)
-            {
-                columnLoadsSeries.Values = _loadValues;
-            }
-            else
-            {
-                MessageBox.Show($"Unexpected series type: {Frequencies[0]?.GetType()?.Name}");
-            }
 
             var temperature = _cpu.Sensors.FirstOrDefault(x => x.SensorType == SensorType.Temperature);
             var power = _cpu.Sensors.FirstOrDefault(x => x.SensorType == SensorType.Power);
-            var temperaturePointer = circularGaugeUi.Scales[0].Pointers[0] as Syncfusion.UI.Xaml.Gauges.CircularPointer;
-            if (temperaturePointer != null)
-            {
-                temperaturePointer.Value = temperature.Value.Value;
-            }
+            // placing the data of temperature and power into the circular gauges
+            temperatureCircularGauge.SetCircularGauge(temperature);
+            wattageCircularGauge.SetCircularGauge(power);
 
-            var powerPointer = circularGaugeUiWattage.Scales[0].Pointers[0] as Syncfusion.UI.Xaml.Gauges.CircularPointer;
-            if (powerPointer != null)
-            {
-                powerPointer.Value = power.Value.Value;
-            }
             UpdateTextBlocksUI(temperature, power);
-
         }
 
+     
 
-
-        private void SetChartData()
-        {
-
-            // Now bind the real values to the chart
-            Frequencies = new ISeries[]
-            {
-                     new ColumnSeries<double>
-                     {
-                         Values = _values,
-                         Name = "MHz",
-                         Fill = new SolidColorPaint(SKColors.Red),
-                         Stroke = null // Optional: removes the outline,
-                     }
-            };
-
-            XAxes = new Axis[]
-            {
-                 new Axis
-                 {
-                     LabelsPaint = new SolidColorPaint(SKColors.White),
-                     NamePaint = new SolidColorPaint(SKColors.White),
-                     Labels = _clocks.Select(sensor => sensor.Name).ToList(),
-                     LabelsRotation = 90,
-                     Name = "Core"
-                 }
-            };
-
-            YAxes = new Axis[]
-             {
-                 new Axis
-                 {
-                     LabelsPaint = new SolidColorPaint(SKColors.White),
-                     NamePaint = new SolidColorPaint(SKColors.White),
-                     Name = "Frequency (MHz)",
-                     MinLimit = 0,
-                     MaxLimit = 8000 // or whatever upper bound fits your data
-                 }
-             };
-        }
         private void UpdateTextBlocksUI(ISensor? temperature, ISensor? power)
         {
-
-            txtMinTemperature.Text = $"{Math.Round(temperature.Min.Value)}°";
-            txtValueTemperature.Text = $"{Math.Round(temperature.Value.Value)}°";
-            txtMaxTemperature.Text = $"{Math.Round(temperature.Max.Value)}°";
+            txtMinTemperature.Text = $"{Math.Round(temperature.Min.Value)}{temperature.SensorType.GetUnit()}";
+            txtValueTemperature.Text = $"{Math.Round(temperature.Value.Value)}{temperature.SensorType.GetUnit()}";
+            txtMaxTemperature.Text = $"{Math.Round(temperature.Max.Value)}{temperature.SensorType.GetUnit()}";
             //wattage ui
-            txtMinWattage.Text = $"{Math.Round(power.Min.Value)} W";
-            txtCurrentWattage.Text = $"{Math.Round(power.Value.Value)} W";
-            txtMaxWattage.Text = $"{Math.Round(power.Max.Value)} W";
+            txtMinWattage.Text = $"{Math.Round(power.Min.Value)}{power.SensorType.GetUnit()}";
+            txtCurrentWattage.Text = $"{Math.Round(power.Value.Value)}{power.SensorType.GetUnit()}";
+            txtMaxWattage.Text = $"{Math.Round(power.Max.Value)}{power.SensorType.GetUnit()}";
         }
     }
 }

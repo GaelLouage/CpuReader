@@ -7,7 +7,8 @@
         mc:Ignorable="d"
    Background="#FF151515"
            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Hardware Monitor" Height="1200" Width="1400">
+        Title="Hardware Monitor" Height="1200" Width="1400" MouseDown="Window_MouseDown"
+  ResizeMode="NoResize" WindowStyle="None">
 
     <Grid Loaded="Grid_Loaded">
         <Grid.ColumnDefinitions>
@@ -27,11 +28,16 @@
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="6" Grid.ColumnSpan="2" Background="#D50000"/>
-
-        <Image Source="Images/topIco.png" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Cursor="Hand" Width="100" Height="100"/>
-        <Image x:Name="btnMotherBoard" Source="Images/mdb.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Cursor="Hand" Width="100" Height="100" MouseLeftButtonDown="btnMotherBoard_MouseLeftButtonDown" />
-        <Image x:Name="btnCpu" Source="Images/cpu.png" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Cursor="Hand" Width="100" Height="100" MouseLeftButtonDown="btnCpu_MouseLeftButtonDown" />
-        <Image x:Name="btnGpu"  Source="Images/gpu.png" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Cursor="Hand" Width="100" Height="100" MouseLeftButtonDown="btnGpu_MouseLeftButtonDown"/>
+        <DockPanel Grid.Column="0" Grid.Row="0"   Grid.ColumnSpan="7" Background="#D50000"  Height="30" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="150,-20,70,0">
+                <TextBlock x:Name="txtMinimizeApp" Text="-" Foreground="White" FontSize="50" VerticalAlignment="Center" Cursor="Hand"  Margin="40,10,-2,5" MouseLeftButtonDown="txtMinimizeApp_MouseLeftButtonDown"/>
+                <TextBlock x:Name="txtCloseApp" Text="x" Foreground="White" FontSize="25" VerticalAlignment="Center" FontWeight="Bold" Cursor="Hand" Margin="40,10,-2,0" MouseLeftButtonDown="txtCloseApp_MouseLeftButtonDown" />
+            </StackPanel>
+        </DockPanel>
+        <Image Source="Images/topIco.png" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Cursor="Hand" Width="100" Height="100" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+      
+        <Image x:Name="btnCpu" Source="Images/cpu.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Cursor="Hand" Width="100" Height="100" MouseLeftButtonDown="btnCpu_MouseLeftButtonDown" />
+        <Image x:Name="btnGpu"  Source="Images/gpu.png" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Cursor="Hand" Width="100" Height="100" MouseLeftButtonDown="btnGpu_MouseLeftButtonDown"/>
         <ContentControl x:Name="MainContent"
 				Grid.Row="0" Grid.RowSpan="6"
                  Grid.Column="2"

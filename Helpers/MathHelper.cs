@@ -1,5 +1,4 @@
-﻿using CpuReader.Services.Classes;
-using LiveChartsCore.SkiaSharpView.Painting;
+﻿using LiveChartsCore.SkiaSharpView.Painting;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore;
 using SkiaSharp;

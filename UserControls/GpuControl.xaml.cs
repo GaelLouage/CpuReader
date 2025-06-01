@@ -1,4 +1,6 @@
 ﻿
+using CpuReader.Extensions;
+using CpuReader.Helpers;
 using LibreHardwareMonitor.Hardware;
 using System;
 using System.Collections;
@@ -24,77 +26,84 @@ namespace CpuReader.UserControls
     /// </summary>
     public partial class GpuControl : UserControl
     {
-        private Computer _computer;
         private DispatcherTimer _timer;
-
-        private IHardware? _gpu;
-        public GpuControl(Computer computer)
+        public ChartDataEntity LoadChart { get; set; }
+        public ChartDataEntity FrequenciesChart { get; set; }
+        private IHardware _gpu;
+        public GpuControl(IHardware gpu)
         {
             InitializeComponent();
-            _computer = computer;
+            _gpu = gpu;
+            LoadChart = new ChartDataEntity();
+            FrequenciesChart = new ChartDataEntity();
         }
+ 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            //_timer = new DispatcherTimer();
-            //_timer.Interval = TimeSpan.FromMilliseconds(500);
-            //_timer.Tick += Gpu_Tick;
-            //_timer.Start();
-            //_gpu = _gpuData.Get(_computer);
-            //txtGpuName.Text = _gpu.Name ?? "Unknown";
+
+
+            txtGpuName.Text = _gpu.Name;
+            _gpu.Update();  // This ensures you get current sensor data
+            // set the chart sensors on frequancy and loads
+            FrequenciesChart.SetChartSensors(_gpu, x => x.SensorType == SensorType.Clock && x.Value.HasValue, x => (double)x.Value.Value);
+            LoadChart.SetChartSensors(_gpu, x => x.SensorType == SensorType.Load, x => Math.Round((double)x.Value));
+
+
+            // set frequencies chartData
+            (var frequencies, var xfrequenciesAxes, var yfrequenciesAxes) = ChartHelpers.SetChartData(FrequenciesChart.Values, FrequenciesChart.Sensors, "MHz", 0, 8000);
+            FrequenciesChart.Series = frequencies;
+            FrequenciesChart.XAxes = xfrequenciesAxes;
+            FrequenciesChart.YAxes = yfrequenciesAxes;
+
+            // set load frequencies chartData
+            (var loads, var xloadsAxes, var yloadsAxes) = ChartHelpers.SetChartData(LoadChart.Values, LoadChart.Sensors, "%", 0, 100);
+            LoadChart.Series = loads;
+            LoadChart.XAxes = xloadsAxes;
+            LoadChart.YAxes = yloadsAxes;
+
+
+            DataContext = this;
+
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromMilliseconds(500);
+            _timer.Tick += Gpu_Tick;
+            _timer.Start();
         }
+
+
+
         void Gpu_Tick(object sender, EventArgs e)
         {
-            //var sb = new StringBuilder();
-            //foreach (var sensor in _gpu.Sensors)
-            //{
-            //    if (sensor.SensorType == SensorType.Voltage)
-            //    {
-            //        sb.AppendLine($"Voltage:{sensor.Name} {sensor.Value}");
-            //    }
+            _gpu.Update();
 
-            //    if (sensor.SensorType == SensorType.Clock)
-            //    {
-            //        sb.AppendLine($"Clock Min: {sensor.Min}");
-            //        sb.AppendLine($"Clock: {sensor.Value}");
-            //        sb.AppendLine($"Clock Max: {sensor.Max}");
-            //    }
+            // set the chart sensors on frequancy and loads
+            FrequenciesChart.SetChartSensors(_gpu, x => x.SensorType == SensorType.Clock && x.Value.HasValue, x => (double)x.Value.Value);
+            LoadChart.SetChartSensors(_gpu, x => x.SensorType == SensorType.Load, x => Math.Round((double)x.Value));
+            // set the column series on frequancy and loads
+            FrequenciesChart.SetColumnSeries();
+            LoadChart.SetColumnSeries();
 
-            //    if (sensor.SensorType == SensorType.Load)
-            //    {
-            //        sb.AppendLine($"Load: {sensor.Value}");
-            //    }
 
-            //    if (sensor.SensorType == SensorType.Frequency)
-            //    {
-            //        sb.AppendLine($"Frequency: {sensor.Value}");
-            //    }
+            var temperature = _gpu.Sensors.FirstOrDefault(x => x.SensorType == SensorType.Temperature);
+            var power = _gpu.Sensors.FirstOrDefault(x => x.SensorType == SensorType.Power);
+            // placing the data of temperature and power into the circular gauges
+            GputemperatureCircularGauge.SetCircularGauge(temperature);
+            GpuCoreClockCircularGauge.SetCircularGauge(power);
 
-            //    if (sensor.SensorType == SensorType.Humidity)
-            //    {
-            //        sb.AppendLine($"Humidity: {sensor.Value}");
-            //    }
+            UpdateTextBlocksUI(temperature, power);
+        }
 
-            //    if (sensor.SensorType == SensorType.Voltage)
-            //    {
-            //        sb.AppendLine($"Voltage: {sensor.Value}");
-            //    }
 
-            //    if (sensor.SensorType == SensorType.Noise)
-            //    {
-            //        sb.AppendLine($"Noise: {sensor.Value}");
-            //    }
 
-            //    if (sensor.SensorType == SensorType.Humidity)
-            //    {
-            //        sb.AppendLine($"Humidity: {sensor.Value}");
-            //    }
-
-            //    if (sensor.SensorType == SensorType.Conductivity)
-            //    {
-            //        sb.AppendLine($"Conductivity: {sensor.Value}");
-            //    }
-            //}
-            //txtGpuData.Text = sb.ToString();
+        private void UpdateTextBlocksUI(ISensor? temperature, ISensor? power)
+        {
+            txtGpuMinTemperature.Text = $"{Math.Round(temperature.Min.Value)}{temperature.SensorType.GetUnit()}";
+            txtGpuValueTemperature.Text = $"{Math.Round(temperature.Value.Value)}{temperature.SensorType.GetUnit()}";
+            txtGpuMaxTemperature.Text = $"{Math.Round(temperature.Max.Value)}{temperature.SensorType.GetUnit()}";
+            //wattage ui
+            txtClockMin.Text = $"{Math.Round(power.Min.Value)}{power.SensorType.GetUnit()}";
+            txtClockValue.Text = $"{Math.Round(power.Value.Value)}{power.SensorType.GetUnit()}";
+            txtClockMax.Text = $"{Math.Round(power.Max.Value)}{power.SensorType.GetUnit()}";
         }
     }
 }

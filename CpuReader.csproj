@@ -40,8 +40,4 @@
     <PackageReference Include="Syncfusion.SfGauge.WPF" Version="29.2.7" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
 </Project>

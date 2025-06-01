@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
              xmlns:local="clr-namespace:CpuReader.UserControls"
+         xmlns:gauge ="clr-namespace:Syncfusion.UI.Xaml.Gauges;assembly=Syncfusion.SfGauge.Wpf"
+        xmlns:syncfusion="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Loaded="Grid_Loaded">
@@ -13,10 +15,13 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -39,5 +44,116 @@ Foreground="White"
 Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="8" Grid.RowSpan="4"
  Margin="10"
 Text=""/>
+        <TextBlock x:Name="txtGpuInfo" Foreground="White"/>
+
+
+        <GroupBox Header="Core Temperature"  Foreground="White" Grid.Row="2" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="50,0,40,0">
+            <StackPanel Margin="20" VerticalAlignment="Center" >
+                <gauge:SfCircularGauge x:Name="GputemperatureCircularGauge" 
+       
+         Height="250">
+                    <gauge:SfCircularGauge.Scales>
+                        <gauge:CircularScale
+                           StartValue="0"
+                           EndValue="100"
+                           RimStrokeThickness="20"
+                           LabelOffset="50"
+                           RimStroke="#D50000">
+                            <gauge:CircularScale.Pointers>
+
+                                <gauge:CircularPointer PointerType="NeedlePointer"
+                         EnableAnimation="True"
+                         Value="50"
+                         RangeStart="0"
+                          NeedlePointerType="Tapered"
+                         RangeEndOffset ="0"/>
+
+                            </gauge:CircularScale.Pointers>
+                        </gauge:CircularScale>
+                    </gauge:SfCircularGauge.Scales>
+                </gauge:SfCircularGauge>
+
+
+
+
+                <StackPanel Margin="30,20,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Foreground="White" Text="Min:" Margin="30,0,55,15"/>
+                        <TextBlock x:Name="txtGpuMinTemperature" Foreground="White" Text="..." Margin="5,0,60,0"/>
+                    </StackPanel>
+
+
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Foreground="White" Text="Current:" Margin="20,0,55,15"/>
+                        <TextBlock x:Name="txtGpuValueTemperature" Foreground="White" Text="..." Margin="5,0,60,0"/>
+                    </StackPanel>
+
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Foreground="White" Text="Max:" Margin="36,0,55,15"/>
+                        <TextBlock x:Name="txtGpuMaxTemperature" Foreground="White" Text="..." Margin="5,0,60,0"/>
+                    </StackPanel>
+                </StackPanel>
+
+
+            </StackPanel>
+
+
+        </GroupBox>
+
+
+        <GroupBox Header="Core Clock"  Foreground="White" Grid.Row="2" Grid.RowSpan="4" Grid.Column="3" Grid.ColumnSpan="3" Margin="50,0,40,0">
+            <StackPanel Margin="20" VerticalAlignment="Center" >
+                <gauge:SfCircularGauge x:Name="GpuCoreClockCircularGauge"  Height="250">
+                    <gauge:SfCircularGauge.Scales>
+                        <gauge:CircularScale
+                    StartValue="0"
+                    EndValue="100"
+                    RimStrokeThickness="20"
+                    LabelOffset="50"
+                    RimStroke="#D50000">
+                            <gauge:CircularScale.Pointers>
+
+                                <gauge:CircularPointer PointerType="NeedlePointer"
+                  EnableAnimation="True"
+                  Value="50"
+                  RangeStart="0"
+                   NeedlePointerType="Tapered"
+                  RangeEndOffset ="0"/>
+
+                            </gauge:CircularScale.Pointers>
+                        </gauge:CircularScale>
+                    </gauge:SfCircularGauge.Scales>
+                </gauge:SfCircularGauge>
+
+
+
+
+                <StackPanel Margin="30,20,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Foreground="White" Text="Min:" Margin="30,0,55,15"/>
+                        <TextBlock x:Name="txtClockMin" Foreground="White" Text="..." Margin="5,0,60,0"/>
+                    </StackPanel>
+
+
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Foreground="White" Text="Current:" Margin="20,0,55,15"/>
+                        <TextBlock x:Name="txtClockValue" Foreground="White" Text="..." Margin="5,0,60,0"/>
+                    </StackPanel>
+
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Foreground="White" Text="Max:" Margin="36,0,55,15"/>
+                        <TextBlock x:Name="txtClockMax" Foreground="White" Text="..." Margin="5,0,60,0"/>
+                    </StackPanel>
+                </StackPanel>
+
+
+            </StackPanel>
+
+
+        </GroupBox>
     </Grid>
 </UserControl>

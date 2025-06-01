@@ -1,5 +1,4 @@
-﻿using CpuReader.Services.Classes;
-using LiveChartsCore.SkiaSharpView.Painting;
+﻿using LiveChartsCore.SkiaSharpView.Painting;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore;
 using SkiaSharp;
@@ -10,10 +9,9 @@ namespace CpuReader.Helpers
     public class ChartHelpers
     {
 
-        public static void SetChartData(out ISeries[] frequencies, out Axis[] xAxes, out Axis[] yAxes, double[] values, ISensor[] clocks, string frequencyName, string xAxisName, string yAxisName)
+        public static (ISeries[] frequencies, Axis[] xAxes, Axis[] yAxes) SetChartData(double[] values, ISensor[] sensors, string frequencyName,  int min, int max)
         {
-            // Now bind the real values to the chart
-            frequencies = new ISeries[]
+            var frequencies = new ISeries[]
             {
                      new ColumnSeries<double>
                      {
@@ -24,29 +22,29 @@ namespace CpuReader.Helpers
                      }
             };
 
-            xAxes = new Axis[]
+            var xAxes = new Axis[]
             {
                  new Axis
                  {
                      LabelsPaint = new SolidColorPaint(SKColors.White),
                      NamePaint = new SolidColorPaint(SKColors.White),
-                     Labels = clocks.Select(sensor => sensor.Name).ToList(),
+                     Labels = sensors.Select(x => x.Name).ToList(),
                      LabelsRotation = 90,
-                     Name = xAxisName
                  }
             };
 
-            yAxes = new Axis[]
+           var yAxes = new Axis[]
              {
                  new Axis
                  {
                      LabelsPaint = new SolidColorPaint(SKColors.White),
                      NamePaint = new SolidColorPaint(SKColors.White),
-                     Name = yAxisName,
-                     MinLimit = 0,
-                     MaxLimit = 8000 // or whatever upper bound fits your data
+                     Name = frequencyName,
+                     MinLimit = min,
+                     MaxLimit = max // or whatever upper bound fits your data
                  }
              };
+            return (frequencies, xAxes, yAxes);
         }
     }
 }
